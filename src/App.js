@@ -41,20 +41,29 @@ function App() {
     <div className="container">
       <h1 className="text-center">React</h1>
       <h3 className="text-center">Basic Todo Application</h3>
-      <div className="content p-2">
-        <div className="list pb-2">
-          {todos.map((todo, index) => (
-            <Todo
-              key={index}
-              index={index}
-              todo={todo}
-              completeTodo={completeTodo}
-              removeTodo={removeTodo}
-            />
-          ))}
-        </div>
-      </div>
       <AddTodo addTodo={addTodo} />
+      <div className="content">
+        {
+          todos.length <= 0 &&
+          <div className="todo bg-dark my-2 p-2">
+            <span className="text-white">You've finished your list! Great job!</span>
+          </div>
+        }
+        {
+          todos.length > 0 &&
+          <div className="list pb-2">
+            {todos.map((todo, index) => (
+              <Todo
+                key={index}
+                index={index}
+                todo={todo}
+                completeTodo={completeTodo}
+                removeTodo={removeTodo}
+              />
+            ))}
+          </div>
+        }
+      </div>
     </div>
   );
 }

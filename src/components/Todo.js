@@ -4,7 +4,7 @@ import '../css/App.css';
 function Todo({ todo, index, completeTodo, removeTodo }) {
 
   return (
-    <div className="todo mb-2 p-2">
+    <div className="todo my-2 p-2">
       <span style={{ textDecoration: todo.isCompleted ? "line-through" : "" }}>{todo.text}</span>
       <div className="btn-group float-right" role="group" aria-label="Basic example">
         <button 
