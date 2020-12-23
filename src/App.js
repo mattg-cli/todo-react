@@ -31,6 +31,12 @@ function App() {
     setTodos(newTodos);
   }
 
+  const removeTodo = index => {
+    const newTodos = [...todos];
+    newTodos.splice(index, 1);
+    setTodos(newTodos);
+  }
+
   return (
     <div className="container">
       <h1 className="text-center">React</h1>
@@ -43,11 +49,12 @@ function App() {
               index={index}
               todo={todo}
               completeTodo={completeTodo}
+              removeTodo={removeTodo}
             />
           ))}
         </div>
-        <AddTodo addTodo={addTodo} />
       </div>
+      <AddTodo addTodo={addTodo} />
     </div>
   );
 }
