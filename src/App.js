@@ -6,19 +6,12 @@ import './css/App.css';
 function App() {
 
   const [todos, setTodos] = React.useState([
-    { 
-      text: "Go to the Store.",
-      isCompleted: false
-    },
-    { 
-      text: "Wash Car.",
-      isCompleted: false
-    },
-    { 
-      text: "Clean Garage.",
-      isCompleted: false
-    }
+    { text: "Go to the Store.", isCompleted: false },
+    { text: "Wash Car.", isCompleted: false },
+    { text: "Clean Garage.", isCompleted: false }
   ]);
+
+  const [completedTodos, setCompletedTodos] = React.useState([]);
 
   const addTodo = text => {
     const newTodos = [...todos, { text }];
@@ -28,13 +21,22 @@ function App() {
   const completeTodo = index => {
     const newTodos = [...todos];
     newTodos[index].isCompleted = true;
+    completedTodos.push(newTodos[index]);
+    setCompletedTodos(completedTodos);
+    newTodos.splice(index, 1);
     setTodos(newTodos);
   }
 
-  const removeTodo = index => {
-    const newTodos = [...todos];
-    newTodos.splice(index, 1);
-    setTodos(newTodos);
+  const deleteTodo = todo => {
+    if (todo.isCompleted) {
+      const newCompletedTodos = [...completedTodos];
+      newCompletedTodos.splice(todo, 1);
+      setCompletedTodos(newCompletedTodos);
+    } else {
+      const newTodos = [...todos];
+      newTodos.splice(todo, 1);
+      setTodos(newTodos);
+    }
   }
 
   return (
@@ -58,10 +60,26 @@ function App() {
                 index={index}
                 todo={todo}
                 completeTodo={completeTodo}
-                removeTodo={removeTodo}
+                deleteTodo={deleteTodo}
               />
             ))}
           </div>
+        }
+        {
+          completedTodos.length > 0 &&
+          <div className="list pb-2">
+            <h3>Completed</h3>
+            {completedTodos.map((cTodo, index) => (
+              <Todo
+                key={index}
+                index={index}
+                todo={cTodo}
+                completeTodo={completeTodo}
+                addTodo={addTodo}
+                deleteTodo={deleteTodo}
+              />
+            ))}
+          </div> 
         }
       </div>
     </div>
